@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  producer:
+    image: training/whoami
+    hostname: poducer
+    ports:
+      - "8000:8000"
+  consumer:
+    image: training/whoami
+    hostname: consumer
