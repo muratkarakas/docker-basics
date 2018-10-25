@@ -1,0 +1,87 @@
+
+
+stop all containers:
+
+docker kill $(docker ps -q)
+remove all containers
+
+docker rm $(docker ps -a -q)
+
+docker -H 10.144.6.26   rm $(docker  -H 10.144.6.26   ps -a -q)
+remove all docker images
+
+docker rmi $(docker images -q)
+
+
+curl -k https://dtrhostname:443/ca -o /etc/pki/ca-trust/source/anchors/dtrhostname.crt
+update-ca-trust
+service docker restart
+
+docker-compose up --scale node-server=3
+
+run  -v my-vol:/data debian  ls /data
+
+docker run -it  -v my-vol:/data ubuntu /bin/sh
+
+docker volume create --name my-vol
+
+docker  run  -d  -p 8080:80 nginx
+
+docker run -v /Users/murat/DEV:/data debian ls /data
+
+docker network create --driver bridge my_bridge
+
+
+
+
+
+docker container run --name=u2 --network=my_bridge -dt centos:7
+docker container run --name=u3 --network=my_bridge -it centos:7
+
+
+
+docker network create --driver overlay my_overlay
+docker service create --name pinger --network my_overlay alpine ping 8.8.8.8
+docker service ls
+docker service ps pinger
+docker service update pinger --replicas=8
+docker service logs pinger
+
+
+docker stack deploy --compose-file docker-compose-basic.yml basic
+docker -H 10.144.6.26  kill $(docker -H 10.144.6.26 ps -q)
+docker -H 10.144.6.26 rm $(docker -H 10.144.6.26 ps -a -q)
+docker -H 10.144.6.26 rmi $(docker -H 10.144.6.26 images)
+
+
+docker -H 10.144.6.27 rm $(docker -H 10.144.6.27 ps -a -q)
+
+
+docker -H 10.144.6.27 rmi $(docker -H 10.144.6.27 images)
+
+
+docker system events
+
+docker container run --rm alpine echo 'Hello World!'
+
+
+docker service create --name who-am-I --publish 8000:8000 --replicas 3 training/whoami:latest
+
+
+
+
+
+curl http://localhost:8000/
+
+docker service rm $(docker service ls -q)
+
+docker stack deploy --compose-file docker-compose-cp.yml  cp
+docker service scale cp_producer=5
+
+docker stack deploy --compose-file docker-compose.yml cna
+
+docker stack services cna
+
+docker service scale cna_order-service=2
+
+docker-compose -f docker-compose.yml scale order-service=2
