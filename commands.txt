@@ -68,7 +68,9 @@ docker container run --rm alpine echo 'Hello World!'
 docker service create --name who-am-I --publish 8000:8000 --replicas 3 training/whoami:latest
 
 
-
+docker run -d -p 5000:5000 --restart=always --name registry registry
+docker tag alpine localhost:5000/my-alpine
+docker push localhost:5000/my-alpine
 
 
 curl http://localhost:8000/
