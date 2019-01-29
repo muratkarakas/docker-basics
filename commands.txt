@@ -1,3 +1,35 @@
+steps
+
+hello run
+ls
+rm
+image ls
+logs 
+exec -it /bin/sh
+
+
+
+
+network
+
+
+port binding
+
+volume
+
+
+image build
+
+image build maven
+
+
+
+-------------
+
+
+
+
+
 
 
 stop all containers:
