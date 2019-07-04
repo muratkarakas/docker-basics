@@ -2,7 +2,10 @@ version: '3'
 services:
 
 
-  nginx:
-    image: nginx
+  db:
+    image: redis
+    
+  docker-repository:
+    image: registry    
   
                                                          
