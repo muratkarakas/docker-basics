@@ -1,0 +1,21 @@
+
+docker service create --name who-am-I --publish 8000:8000 --replicas 3 training/whoami:latest
+
+
+curl http://localhost:8000/
+
+docker service rm $(docker service ls -q)
+
+docker service scale who-am-I=5
+
+
+
+
+docker network create --driver overlay my_overlay
+docker service create --name pinger --network my_overlay alpine ping 8.8.8.8
+docker service ls
+docker service ps pinger
+docker service update pinger --replicas=8
+docker service logs pinger
+
+

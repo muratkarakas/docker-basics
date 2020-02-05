@@ -1,0 +1,39 @@
+version: '3'
+
+networks:
+   frontend:
+   backend:
+
+volumes:
+     db_data: {}
+     wordpress_data: {}
+
+services:
+    db:
+      image: mysql:5.7
+      volumes:
+        - db_data:/var/lib/mysql
+      environment:
+        MYSQL_RANDOM_ROOT_PASSWORD: '1'
+        MYSQL_DATABASE: wordpress
+        MYSQL_USER: wordpress
+        MYSQL_PASSWORD: wordpressPASS
+      networks:
+        - backend
+
+    wordpress:
+      depends_on:
+        - db
+      image: wordpress:latest
+      volumes:
+        - wordpress_data:/var/www/html/wp-content
+      environment:
+        WORDPRESS_DB_HOST: db:3306
+        WORDPRESS_DB_USER: wordpress
+        WORDPRESS_DB_PASSWORD: wordpressPASS
+        WORDPRESS_DB_NAME: wordpress
+      ports:
+        - 8090:80   
+      networks:
+        - frontend
+        - backend

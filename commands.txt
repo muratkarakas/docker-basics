@@ -72,12 +72,7 @@ docker container run --name=u3 --network=my_bridge -it centos:7
 
 
 
-docker network create --driver overlay my_overlay
-docker service create --name pinger --network my_overlay alpine ping 8.8.8.8
-docker service ls
-docker service ps pinger
-docker service update pinger --replicas=8
-docker service logs pinger
+
 
 
 docker stack deploy --compose-file docker-compose-basic.yml basic
@@ -97,7 +92,6 @@ docker system events
 docker container run --rm alpine echo 'Hello World!'
 
 
-docker service create --name who-am-I --publish 8000:8000 --replicas 3 training/whoami:latest
 
 
 docker run -d -p 5000:5000 --restart=always --name registry registry
@@ -105,17 +99,6 @@ docker tag alpine localhost:5000/my-alpine
 docker push localhost:5000/my-alpine
 
 
-curl http://localhost:8000/
 
-docker service rm $(docker service ls -q)
-
-docker stack deploy --compose-file docker-compose-cp.yml  cp
-docker service scale cp_producer=5
-
-docker stack deploy --compose-file docker-compose.yml cna
-
-docker stack services cna
-
-docker service scale cna_order-service=2
 
 docker-compose -f docker-compose.yml scale order-service=2

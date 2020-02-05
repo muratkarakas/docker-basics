@@ -1,0 +1,7 @@
+docker stack deploy  --compose-file wordpress.yml wp
+
+
+docker stack  services wp
+
+
+docker stack  rm  wp
